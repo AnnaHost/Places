@@ -10,17 +10,15 @@ import UIKit
 
 class MainViewController: UITableViewController {
 
-    let places = ["Donna pizza","Thai Pho","BK","KFC","Sushiterra","Sushi banda",
-                  "Plov House","Las Vegas Pizza"]
+    let places = [ModelCell(name: "Donna pizza", location: "Surgut", image: "pizza", type: .restaruant),
+                  ModelCell(name: "Thai Pho", location: "Surgut", image: "pizza", type: .cafe),
+                  ModelCell(name: "BK", location: "Surgut", image: "pizza", type: .cafe),
+                  ModelCell(name: "KFC", location: "Surgut", image: "pizza", type: .cafe),
+                  ModelCell(name: "Las Vegas Pizza", location: "Surgut", image: "pizza", type: .restaruant),
+                  ModelCell(name: "Saima", location: "Surgut", image: "pizza", type: .park)]
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
     // MARK: - Table view data source
@@ -32,14 +30,20 @@ class MainViewController: UITableViewController {
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
-
-        cell.selectionStyle = .blue
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomCell
+        let place = places[indexPath.row]
+        cell.NamePlace.text = place.name
+        cell.LocationPlace.text = place.location
+        cell.imagePlace.image = UIImage(named: place.image)
+        cell.imagePlace.layer.cornerRadius = cell.imagePlace.frame.height / 2
+        cell.imagePlace.clipsToBounds = true
         return cell
     }
     
 
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 85
+    }
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
